@@ -53,3 +53,14 @@ jobs:
          docker compose pull
          docker compose up -d --remove-orphans
 
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.VM_SSH_HOST }}
+          username: ${{ secrets.VM_SSH_USER }}
+          key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /home/azureuser/example-voting-app
+            docker compose pull
+            docker compose up -d --remove-orphans
